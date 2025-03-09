@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.smartfarmapi.weather.WeatherMapper">
+	<select id="getWeather" parameterType="WeatherGetDto" resultType="WeatherGetVo">
+		SELECT WEATHER_LOG.STATUS, WEATHER_LOG.TEMPERATURE, WEATHER_LOG.WIND_PWR, WEATHER_LOG.WIND_DIRECTION, WEATHER_LOG.UPDATE_DTTM, WEATHER_LOG.HUMIDITY, REGION_CODE.REGIONNAME
+		FROM TBL_WEATHER_LOG WEATHER_LOG
+		INNER JOIN TBL_REGION_CODE REGION_CODE
+		ON WEATHER_LOG.REGION_CD = REGION_CODE.REGIONCD
+		WHERE REGION_CODE.REGIONCD = #{regionCode} AND WEATHER_LOG.UPDATE_DTTM BETWEEN CONCAT(#{date}, ' 00:00:00') AND CONCAT(#{date}, ' 23:59:59');
+	</select>
+</mapper>
