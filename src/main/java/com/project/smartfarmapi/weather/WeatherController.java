@@ -2,7 +2,6 @@ package com.project.smartfarmapi.weather;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +27,7 @@ public class WeatherController {
 	
 	@GetMapping
 	@Operation(summary = "날씨 API", description = "")
-	public ResponseEntity<ApiResponse<List<WeatherGetVo>>> weatherLoad(@RequestBody WeatherGetDto dto) {
+	public ResponseEntity<ApiResponse<List<WeatherGetVo>>> getWeather(@RequestBody WeatherGetDto dto) {
 		List<WeatherGetVo> vo = service.getWeather(dto);
 		ApiResponse<List<WeatherGetVo>> apiResponse = ApiResponse.<List<WeatherGetVo>>success(vo);
 		
