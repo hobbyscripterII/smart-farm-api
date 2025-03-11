@@ -1,4 +1,4 @@
-package com.project.smartfarmapi.weather;
+package com.project.smartfarmapi.region;
 
 import java.util.List;
 
@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.smartfarmapi.api.ApiResponse;
+import com.project.smartfarmapi.region.dto.RegionGetDto;
+import com.project.smartfarmapi.region.vo.RegionGetVo;
 import com.project.smartfarmapi.weather.dto.WeatherGetDto;
 import com.project.smartfarmapi.weather.vo.WeatherGetVo;
 
@@ -19,17 +21,17 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@Tag(name = "날씨 정보 API")
-@RequestMapping("/weather")
+@Tag(name = "지역 정보 API")
+@RequestMapping("/region")
 @RequiredArgsConstructor
-public class WeatherController {
-	private final WeatherService service;
+public class RegionController {
+	private final RegionService service;
 	
 	@GetMapping
-	@Operation(summary = "날씨 API", description = "")
-	public ResponseEntity<ApiResponse<List<WeatherGetVo>>> getWeather(@RequestBody WeatherGetDto dto) {
-		List<WeatherGetVo> vo = service.getWeather(dto);
-		ApiResponse<List<WeatherGetVo>> apiResponse = ApiResponse.<List<WeatherGetVo>>success(vo);
+	@Operation(summary = "지역 정보 API", description = "설명 : 지역 코드 ';'로 구분합니다.")
+	public ResponseEntity<ApiResponse<List<RegionGetVo>>> getRegion(@RequestBody RegionGetDto dto) {
+		List<RegionGetVo> vo = service.getRegion(dto);
+		ApiResponse<List<RegionGetVo>> apiResponse = ApiResponse.<List<RegionGetVo>>success(vo);
 		
 		return ResponseEntity
 				.ok(apiResponse);

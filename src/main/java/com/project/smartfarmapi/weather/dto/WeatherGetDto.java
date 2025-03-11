@@ -13,6 +13,6 @@ public class WeatherGetDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	public LocalDate date = LocalDate.now();
 	
-	@Schema(description = "지역 코드", defaultValue = "2717055000")
+	@Schema(description = "지역 코드")
 	public String regionCode;
 }
