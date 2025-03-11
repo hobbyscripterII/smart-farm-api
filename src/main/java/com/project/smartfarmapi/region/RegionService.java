@@ -1,6 +1,5 @@
 package com.project.smartfarmapi.region;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -21,8 +20,6 @@ public class RegionService {
 		String regionCodes = dto.getRegionCodes();
 		
 		for(String regionCd : regionCodes.split(";")) {
-			log.info("regionCd = {}", regionCd);
-			
 			dto.getRegionList().add(regionCd);
 		}
 		
