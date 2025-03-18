@@ -15,4 +15,7 @@ public class WeatherGetDto {
 	
 	@Schema(description = "지역 코드")
 	public String regionCode;
+	
+	@Schema(description = "시간 간격")
+	public String timeInterval;
 }
