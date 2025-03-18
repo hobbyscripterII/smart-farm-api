@@ -28,8 +28,6 @@ public class WeatherController {
 	@GetMapping
 	@Operation(summary = "날씨 API", description = "")
 	public ResponseEntity<ApiResponse<List<WeatherGetVo>>> getWeather(@RequestBody WeatherGetDto dto) {
-		log.info("dto = {}", dto);
-		
 		List<WeatherGetVo> vo = service.getWeather(dto);
 		ApiResponse<List<WeatherGetVo>> apiResponse = ApiResponse.<List<WeatherGetVo>>success(vo);
 		
