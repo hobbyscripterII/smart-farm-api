@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.smartfarmapi.api.ApiResponse;
 import com.project.smartfarmapi.region.dto.RegionGetDto;
 import com.project.smartfarmapi.region.vo.RegionGetVo;
-import com.project.smartfarmapi.weather.dto.WeatherGetDto;
-import com.project.smartfarmapi.weather.vo.WeatherGetVo;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;

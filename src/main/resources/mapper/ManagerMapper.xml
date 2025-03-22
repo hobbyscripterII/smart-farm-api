@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.smartfarmapi.manager.ManagerMapper">
+	<select id="getManager" resultType="ManagerGetVo">
+		SELECT
+			ADMIN.ID,
+			ADMIN.NAME,
+			ADMIN.TEL,
+			ADMIN.REGION_CDs AS REGION_CODES,
+			GROUP_CONCAT(REGION_CODE.REGIONNAME ORDER BY ADMIN.REGION_CDs SEPARATOR ';') AS REGION_NAMES
+		FROM TBL_ADMIN ADMIN
+		LEFT JOIN TBL_REGION_CODE REGION_CODE
+		ON ADMIN.REGION_CDs LIKE CONCAT('%', REGION_CODE.REGIONCD, '%')
+		WHERE ADMIN.AUTHORIZATION = 'MANAGER'
+		GROUP BY ADMIN.ID, ADMIN.NAME, ADMIN.TEL, ADMIN.REGION_CDs
+	</select>
+	
+	<select id="selManager" parameterType="ManagerSelDto" resultType="ManagerSelVo">
+		SELECT
+			ADMIN.ID,
+			ADMIN.NAME,
+			ADMIN.TEL,
+			ADMIN.REGION_CDs AS REGION_CODES,
+			GROUP_CONCAT(REGION_CODE.REGIONNAME ORDER BY ADMIN.REGION_CDs SEPARATOR ';') AS REGION_NAMES
+		FROM TBL_ADMIN ADMIN
+		LEFT JOIN TBL_REGION_CODE REGION_CODE
+		ON ADMIN.REGION_CDs LIKE CONCAT('%', REGION_CODE.REGIONCD, '%')
+		WHERE ADMIN.ID = #{id}
+		GROUP BY ADMIN.ID, ADMIN.NAME, ADMIN.TEL, ADMIN.REGION_CDs
+	</select>
+</mapper>
