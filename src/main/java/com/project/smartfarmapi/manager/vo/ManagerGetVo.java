@@ -9,4 +9,5 @@ public class ManagerGetVo {
 	private String tel;
 	private String regionCodes;
 	private String regionNames;
+	private String useYn;
 }

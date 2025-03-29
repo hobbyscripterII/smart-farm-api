@@ -4,10 +4,14 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.project.smartfarmapi.api.ApiResponse;
+import com.project.smartfarmapi.cmmn.ResultVo;
 import com.project.smartfarmapi.manager.dto.ManagerSelDto;
+import com.project.smartfarmapi.manager.dto.ManagerUpdDto;
 import com.project.smartfarmapi.manager.vo.ManagerGetVo;
 import com.project.smartfarmapi.manager.vo.ManagerSelVo;
 
@@ -26,7 +30,7 @@ public class ManagerController {
 	private final ManagerService service;
 	
 	@GetMapping
-	@Operation(summary = "매니저 목록 API")
+	@Operation(summary = "매니저 목록 조회 API")
 	public ResponseEntity<ApiResponse<List<ManagerGetVo>>> getManager() {
 		List<ManagerGetVo> vo = service.getManager();
 		ApiResponse<List<ManagerGetVo>> apiResponse = ApiResponse.<List<ManagerGetVo>>success(vo);
@@ -36,10 +40,19 @@ public class ManagerController {
 	}
 	
 	@GetMapping("/detail")
-	@Operation(summary = "매니저 정보 API")
+	@Operation(summary = "매니저 정보 조회 API")
 	public ResponseEntity<ApiResponse<ManagerSelVo>> selManager(@RequestBody ManagerSelDto dto) {
 		ManagerSelVo vo = service.selManager(dto);
 		ApiResponse<ManagerSelVo> apiResponse = ApiResponse.<ManagerSelVo>success(vo);
+		
+		return ResponseEntity
+				.ok(apiResponse);
+	}
+	
+	@PatchMapping
+	@Operation(summary = "매니저 정보 수정 API")
+	public ResponseEntity<ApiResponse<ResultVo>> updManager(ManagerUpdDto dto) {		ResultVo vo = service.updManager(dto);
+		ApiResponse<ResultVo> apiResponse = ApiResponse.<ResultVo>success(vo);
 		
 		return ResponseEntity
 				.ok(apiResponse);
