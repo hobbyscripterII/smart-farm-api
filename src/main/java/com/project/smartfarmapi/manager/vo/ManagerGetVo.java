@@ -7,7 +7,7 @@ public class ManagerGetVo {
 	private String id;
 	private String name;
 	private String tel;
-	private String regionCodes;
-	private String regionNames;
+	private String regionCode;
+	private String regionName;
 	private String useYn;
 }

@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.smartfarmapi.manager.ManagerMapper">
-	<select id="getManager" resultType="ManagerGetVo">
+	<select id="getManager" parameterType="ManagerGetDto" resultType="ManagerGetVo">
 		SELECT
 			ADMIN.ID,
 			ADMIN.NAME,
 			ADMIN.TEL,
-			ADMIN.REGION_CDs AS REGION_CODES,
-			GROUP_CONCAT(REGION_CODE.REGIONNAME ORDER BY ADMIN.REGION_CDs SEPARATOR ';') AS REGION_NAMES,
+			ADMIN.REGION_CDs AS REGION_CODE,
+			GROUP_CONCAT(REGION_CODE.REGIONNAME ORDER BY ADMIN.REGION_CDs SEPARATOR ';') AS REGION_NAME,
 			ADMIN.USE_YN
 		FROM TBL_ADMIN ADMIN
 		LEFT JOIN TBL_REGION_CODE REGION_CODE
 		ON ADMIN.REGION_CDs LIKE CONCAT('%', REGION_CODE.REGIONCD, '%')
-		WHERE ADMIN.AUTHORIZATION = 'MANAGER'
+		<where>
+			ADMIN.AUTHORIZATION = 'MANAGER'
+			
+		<if test="managerName != null and managerName != ''">
+			AND ADMIN.NAME LIKE CONCAT('%', #{managerName}, '%')
+		</if>
+		
+		<if test="regionName != null and regionName != ''">
+			AND REGION_CODE.REGIONNAME LIKE CONCAT('%', #{regionName}, '%')
+		</if>
+		</where>
 		GROUP BY ADMIN.ID, ADMIN.NAME, ADMIN.TEL, ADMIN.REGION_CDs
 	</select>
 	
@@ -33,9 +43,15 @@
 	<update id="updManager" parameterType="ManagerUpdDto">
 		UPDATE TBL_ADMIN
 		SET
-			NAME   = #{name},
-			TEL    = #{tel},
-			USE_YN = #{useYn}
+			NAME       = #{name},
+			PWD		   = #{pwd},
+			TEL        = #{tel},
+			Region_CDs = #{regionCd},
+			USE_YN     = #{useYn}
 		WHERE ID = #{id}
 	</update>
+	
+	<insert id="insManager" parameterType="ManagerInsDto">
+		INSERT INTO TBL_ADMIN(ID, PWD, NAME, TEL, REGION_CDs) VALUES(#{id}, #{pwd}, #{name}, #{tel}, #{regionCd})
+	</insert>
 </mapper>

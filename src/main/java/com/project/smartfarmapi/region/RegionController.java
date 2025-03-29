@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.smartfarmapi.api.ApiResponse;
 import com.project.smartfarmapi.region.dto.RegionGetDto;
 import com.project.smartfarmapi.region.vo.RegionGetVo;
+import com.project.smartfarmapi.region.vo.RootRegionGetVo;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -30,6 +31,16 @@ public class RegionController {
 	public ResponseEntity<ApiResponse<List<RegionGetVo>>> getRegion(@RequestBody RegionGetDto dto) {
 		List<RegionGetVo> vo = service.getRegion(dto);
 		ApiResponse<List<RegionGetVo>> apiResponse = ApiResponse.<List<RegionGetVo>>success(vo);
+		
+		return ResponseEntity
+				.ok(apiResponse);
+	}
+	
+	@GetMapping("/root")
+	@Operation(summary = "루트 계정 지역 정보 API")
+	public ResponseEntity<ApiResponse<List<RootRegionGetVo>>> getRootRegion() {
+		List<RootRegionGetVo> vo = service.getRootRegion();
+		ApiResponse<List<RootRegionGetVo>> apiResponse = ApiResponse.<List<RootRegionGetVo>>success(vo);
 		
 		return ResponseEntity
 				.ok(apiResponse);

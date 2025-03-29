@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.project.smartfarmapi.api.ApiResponse;
 import com.project.smartfarmapi.cmmn.ResultVo;
+import com.project.smartfarmapi.manager.dto.ManagerGetDto;
+import com.project.smartfarmapi.manager.dto.ManagerInsDto;
 import com.project.smartfarmapi.manager.dto.ManagerSelDto;
 import com.project.smartfarmapi.manager.dto.ManagerUpdDto;
 import com.project.smartfarmapi.manager.vo.ManagerGetVo;
@@ -31,8 +33,8 @@ public class ManagerController {
 	
 	@GetMapping
 	@Operation(summary = "매니저 목록 조회 API")
-	public ResponseEntity<ApiResponse<List<ManagerGetVo>>> getManager() {
-		List<ManagerGetVo> vo = service.getManager();
+	public ResponseEntity<ApiResponse<List<ManagerGetVo>>> getManager(@RequestBody ManagerGetDto dto) {
+		List<ManagerGetVo> vo = service.getManager(dto);
 		ApiResponse<List<ManagerGetVo>> apiResponse = ApiResponse.<List<ManagerGetVo>>success(vo);
 		
 		return ResponseEntity
@@ -44,6 +46,16 @@ public class ManagerController {
 	public ResponseEntity<ApiResponse<ManagerSelVo>> selManager(@RequestBody ManagerSelDto dto) {
 		ManagerSelVo vo = service.selManager(dto);
 		ApiResponse<ManagerSelVo> apiResponse = ApiResponse.<ManagerSelVo>success(vo);
+		
+		return ResponseEntity
+				.ok(apiResponse);
+	}
+	
+	@PostMapping
+	@Operation(summary = "매니저 등록 API")
+	public ResponseEntity<ApiResponse<ResultVo>> insManager(ManagerInsDto dto) {
+		ResultVo vo = service.insManager(dto);
+		ApiResponse<ResultVo> apiResponse = ApiResponse.<ResultVo>success(vo);
 		
 		return ResponseEntity
 				.ok(apiResponse);

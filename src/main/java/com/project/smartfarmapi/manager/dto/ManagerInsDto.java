@@ -3,7 +3,7 @@ package com.project.smartfarmapi.manager.dto;
 import lombok.Data;
 
 @Data
-public class ManagerUpdDto {
+public class ManagerInsDto {
     private String id;
     private String pwd;
     private String name;

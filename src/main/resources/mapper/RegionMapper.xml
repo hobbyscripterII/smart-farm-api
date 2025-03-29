@@ -9,4 +9,12 @@
 			#{item}
 		</foreach>
 	</select>
+	
+	<select id="getRootRegion" resultType="RootRegionGetVo">
+		SELECT REGIONCD, REGIONNAME
+		FROM TBL_ADMIN ADMIN
+		INNER JOIN TBL_REGION_CODE REGION_CODE
+		ON ADMIN.REGION_CDs LIKE CONCAT('%', REGION_CODE.REGIONCD, '%')
+		WHERE ID = 'root'
+	</select>
 </mapper>

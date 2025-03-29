@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.smartfarmapi.region.dto.RegionGetDto;
 import com.project.smartfarmapi.region.vo.RegionGetVo;
+import com.project.smartfarmapi.region.vo.RootRegionGetVo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,5 +25,9 @@ public class RegionService {
 		}
 		
 		return mapper.getRegion(dto);
+	}
+	
+	public List<RootRegionGetVo> getRootRegion() {
+		return mapper.getRootRegion();
 	}
 }
