@@ -2,6 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.smartfarmapi.weather.WeatherMapper">
 	<select id="getWeather" parameterType="WeatherGetDto" resultType="WeatherGetVo">
-		CALL GET_WEATHER(#{date}, #{regionCode}, #{timeInterval})
+		CALL GET_WEATHER(
+			#{date}, 
+			#{regionCode}, 
+			#{timeInterval}
+		)
 	</select>
+	
+	<insert id="insWeather" parameterType="WeatherInsDto">
+		CALL SP_INSERTWEATHER(
+			#{regionCd}, 
+			#{status}, 
+			#{temperature}, 
+			#{windPwr}, 
+			#{windDirection}, 
+			#{updateDttm}, 
+			#{externIp}, 
+			#{humidity}
+		)
+	</insert>
 </mapper>
