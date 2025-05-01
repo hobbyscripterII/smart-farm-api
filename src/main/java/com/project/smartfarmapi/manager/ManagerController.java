@@ -18,7 +18,6 @@ import com.project.smartfarmapi.manager.vo.ManagerGetVo;
 import com.project.smartfarmapi.manager.vo.ManagerSelVo;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +32,7 @@ public class ManagerController {
 	
 	@GetMapping
 	@Operation(summary = "매니저 목록 조회 API")
-	public ResponseEntity<ApiResponse<List<ManagerGetVo>>> getManager(@RequestBody ManagerGetDto dto) {
+	public ResponseEntity<ApiResponse<List<ManagerGetVo>>> getManager(ManagerGetDto dto) {
 		List<ManagerGetVo> vo = service.getManager(dto);
 		ApiResponse<List<ManagerGetVo>> apiResponse = ApiResponse.<List<ManagerGetVo>>success(vo);
 		
@@ -43,7 +42,7 @@ public class ManagerController {
 	
 	@GetMapping("/detail")
 	@Operation(summary = "매니저 정보 조회 API")
-	public ResponseEntity<ApiResponse<ManagerSelVo>> selManager(@RequestBody ManagerSelDto dto) {
+	public ResponseEntity<ApiResponse<ManagerSelVo>> selManager(ManagerSelDto dto) {
 		ManagerSelVo vo = service.selManager(dto);
 		ApiResponse<ManagerSelVo> apiResponse = ApiResponse.<ManagerSelVo>success(vo);
 		
